@@ -1,0 +1,95 @@
+<h1 class="mt-4">Usuario</h1>
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item active">{{ usuario.id ? 'Edição' : 'Cadastro' }}</li>
+</ol>
+<div class="container">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" >
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="alert alert-success" role="alert" *ngIf="success == true">
+                    Usuario salvo/atualizado com sucesso!
+                </div>
+                <div class="alert alert-danger" role="alert" *ngFor="let erro of errors">
+                    {{ erro  }}
+                </div>
+            </div>
+        </div>
+
+        <div class="row" >
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Nome:</label>
+                    <input type="text" [(ngModel)]="usuario.username" name="username" class="form-control"
+                    formControlName="username" />
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Email:</label>
+                    <input type="text" class="form-control" name="email" formControlName="email"
+                           [(ngModel)]="usuario.email" />
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Senha: *</label>
+                    <input type="text" class="form-control" formControlName="password"
+                              [(ngModel)]="usuario.password" name="password" />
+                </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="form-group">
+                  <label>Perfil: *</label>
+                  <ul class="list-group">
+                    <li class="list-group-item" *ngFor="let item of roles">
+                      <input type="checkbox" formControlName="roles" (change)="item.isSelected = !item.isSelected"
+                        name="list_name" value="{{item.id}}" [checked]="item.isSelected"/>
+                        {{item.name}}
+                    </li>
+                  </ul>
+              </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6">
+              <div class="form-group">
+                <label>Núcleo:</label>
+                    <select type="text" class="form-control" formControlName="nucleo"
+                        [(ngModel)]="usuario.nucleo" name="nucleo" [compareWith]="compareObj">
+                        <option *ngFor="let nucleo of listaNucleo"
+                                [ngValue]="nucleo" >
+                                {{nucleo.nome}}
+                        </option>
+                    </select>
+              </div>
+          </div>
+        </div>
+
+
+      <br/>
+
+        <div class="row">
+            <div class="col-md-3">
+                <button type="submit" class="btn btn-success" *ngIf="!usuario.id">
+                    <i class="fa fa-save" ></i> Salvar
+                </button>
+
+                <button type="submit" class="btn btn-primary" *ngIf="usuario.id">
+                    <i class="fa fa-sync-alt" ></i> Atualizar
+                </button>
+
+                <button type="button" class="btn btn-danger ml-1" (click)="voltarParaListagem()">
+                    <i class="fa fa-arrow-alt-circle-left" ></i> Voltar
+                </button>
+            </div>
+
+        </div>
+    </form>
+</div>

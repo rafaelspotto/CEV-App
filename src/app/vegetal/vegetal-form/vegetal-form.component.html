@@ -1,0 +1,134 @@
+<h1 class="mt-4">Vegetal</h1>
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item active">{{ vegetal.id ? 'Edição' : 'Cadastro' }}</li>
+</ol>
+<div class="container">
+    <form [formGroup]="formularioVegetal" (ngSubmit)="onSubmit()" >
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="alert alert-success" role="alert" *ngIf="success == true">
+                    Vegetal salvo/atualizado com sucesso!
+                </div>
+                <div class="alert alert-danger" role="alert" *ngFor="let erro of errors">
+                    {{ erro  }}
+                </div>
+            </div>
+        </div>
+
+        <div class="row" *ngIf="vegetal.id">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Número:</label>
+                    <input type="text" [ngModel]="vegetal.numero" name="id"
+                    class="form-control" formControlName="numero" disabled="true" />
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Ano:</label>
+                    <input type="text" class="form-control" formControlName="ano" name="ano"
+                           [ngModel]="vegetal.ano" disabled="true"  />
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div *ngIf="formularioVegetal.get('descricao')?.errors?.required && formularioVegetal.get('descricao')?.touched"
+                    class="text-danger d-block mt-2">
+                    A Descrição é obrigatória.
+                </div>
+                <div class="form-group">
+                    <label>Descrição: *</label>
+                    <textarea type="text" class="form-control" formControlName="descricao"
+                              [(ngModel)]="vegetal.descricao" name="descricao" >
+                    </textarea>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div *ngIf="formularioVegetal.get('quantidade')?.errors?.required && formularioVegetal.get('quantidade')?.touched"
+                    class="text-danger d-block mt-2">
+                    A Quantidade é obrigatória.
+                </div>
+                <div *ngIf="formularioVegetal.get('quantidade')?.errors?.min && formularioVegetal.get('quantidade')?.touched"
+                    class="text-danger d-block mt-2">
+                    A quantidade mínima é 1.
+                </div>
+                <div class="form-group">
+                    <label>Quantidade: *</label>
+                    <input type="number" class="form-control" formControlName="quantidade"
+                           [(ngModel)]="vegetal.quantidade" name="quantidade"   />
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div *ngIf="formularioVegetal.get('tipoMariri')?.errors?.required && formularioVegetal.get('tipoMariri')?.touched"
+                  class="text-danger d-block mt-2">
+                  O Tipo de Mariri é obrigatório.
+                </div>
+                <div class="form-group">
+                  <label>Tipo Mariri:</label>
+                      <select type="text" class="form-control" formControlName="tipoMariri"
+                          [(ngModel)]="vegetal.tipoMariri" name="tipoMariri" [compareWith]="compareObj">
+                          <option *ngFor="let tipoMariri of listaTipoMariri"
+                                  [ngValue]="tipoMariri" >
+                                  {{tipoMariri.nome}}
+                          </option>
+                      </select>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col-md-3">
+                <button type="submit" class="btn btn-success" *ngIf="!vegetal.id" [disabled]="!formularioVegetal.valid">
+                    <i class="fa fa-save" ></i> Salvar
+                </button>
+
+                <button type="submit" class="btn btn-primary" *ngIf="vegetal.id" [disabled]="!formularioVegetal.valid">
+                    <i class="fa fa-sync-alt" ></i> Atualizar
+                </button>
+
+                <button type="button" class="btn btn-danger ml-1" (click)="voltarParaListagem()">
+                    <i class="fa fa-arrow-alt-circle-left" ></i> Voltar
+                </button>
+            </div>
+
+        </div>
+    </form>
+
+    <br>
+
+    <h1 class="mt-4">Histórico</h1>
+
+    <div class="col-md-12">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Saída</th>
+                    <th>Data Saída</th>
+                    <th>Quantidade</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let saidaVegetal of listaSaidaVegetal" >
+                    <td>{{ saidaVegetal.saida.descricao }} </td>
+                    <td>{{ saidaVegetal.saida.dataSaida | date: 'shortDate' }} </td>
+                    <td>{{ saidaVegetal.quantidade }} </td>
+                </tr>
+                <tr>Total: {{total}}</tr>
+            </tbody>
+        </table>
+
+    </div>
+
+</div>

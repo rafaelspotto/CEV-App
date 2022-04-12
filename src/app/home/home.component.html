@@ -1,0 +1,38 @@
+<h1 class="mt-4">Dashboard</h1>
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item active">Médias</li>
+</ol>
+
+<div class="chart-wrapper">
+  <canvas baseChart
+  [data]="doughnutChartData"
+  [labels]="doughnutChartLabels"
+  [chartType]="doughnutChartType"
+  [colors]="doughnutChartColors">
+</canvas>
+</div>
+
+<br/>
+<ol class="breadcrumb mb-4">
+  <li class="breadcrumb-item active">Médias</li>
+</ol>
+
+<div class="row">
+        <div class="col-md-12">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Sessão</th>
+                        <th>Média</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let saida of saidas" >
+                        <td>{{ saida.nome }} </td>
+                        <td>{{ saida.media }} </td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+    </div>

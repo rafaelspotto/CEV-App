@@ -1,0 +1,64 @@
+<h1 class="mt-4">Vegetal Consumido</h1>
+<ol class="breadcrumb mb-4">
+    <li class="breadcrum-bitem active">Novo</li>
+</ol>
+<div class="container">
+    <form #form="ngForm" (submit)="onSubmit()" >
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="alert alert-success" role="alert" *ngIf="success == true">
+                    Consumo salvo com sucesso!    
+                </div>
+                <div class="alert alert-danger" role="alert" *ngFor="let erro of errors">
+                    {{ erro  }}    
+                </div>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label>Quantidade:</label>
+                    <input class="form-control" 
+                            [(ngModel)]="saidaVegetal.quantidade" type="text" 
+                            name="descricao" id="inputDescricao">
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Vegetal:</label>
+                    <select type="text" class="form-control"
+                        [(ngModel)]="saidaVegetal.vegetal" 
+                        name="vegetal">                           
+                        <option *ngFor="let vegetal of vegetals" 
+                                [ngValue]="vegetal">
+                                {{vegetal.numero}}.{{vegetal.ano}}
+                        </option>
+                        
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3">
+                <button type="submit" class="btn btn-success">
+                    <i class="fa fa-save"></i>
+                    Salvar
+                </button>
+
+                <button type="button" routerLink="/saida/lista" 
+                        class="btn btn-danger ml-1" >
+                    <i class="fa fa-arrow-alt-circle-left" ></i> Voltar
+                </button>
+            </div>
+        </div>
+
+    </form>
+
+</div>

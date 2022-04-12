@@ -1,0 +1,65 @@
+<div id="layoutSidenav_nav">
+    <nav class="sb-sidenav accordion sb-sidenav-dark bg-success" id="sidenavAccordion">
+        <div class="sb-sidenav-menu">
+            <div class="nav">
+                <div class="sb-sidenav-menu-heading text-white">Sistema</div>
+                <a class="nav-link text-white" routerLink="/home">
+                    <div class="sb-nav-link-icon">
+                        <i class="fas fa-tachometer-alt text-white"></i>
+                    </div>
+                    Home
+                </a>
+                <div class="sb-sidenav-menu-heading text-white">Vegetal</div>
+                <a class="nav-link text-white" routerLink="/vegetal">
+                    <div class="sb-nav-link-icon">
+                        <i class="fas fa-tachometer-alt text-white"></i>
+                    </div>
+                    Vegetal
+                </a>
+
+                <a class="nav-link text-white" routerLink="/entrada">
+                    <div class="sb-nav-link-icon">
+                        <i class="fas fa-tachometer-alt text-white"></i>
+                    </div>
+                    Entradas
+                </a>
+
+                <a class="nav-link text-white" routerLink="/saida">
+                    <div class="sb-nav-link-icon">
+                        <i class="fas fa-tachometer-alt text-white"></i>
+                    </div>
+                    Saídas
+                </a>
+
+                <div *ngIf="showAdminUser">
+                  <div class="sb-sidenav-menu-heading text-white">Admin</div>
+                  <a class="nav-link text-white" routerLink="/usuario">
+                      <div class="sb-nav-link-icon">
+                          <i class="fas fa-tachometer-alt text-white"></i>
+                      </div>
+                      Usuários
+                  </a>
+                  <a class="nav-link text-white" routerLink="/nucleo">
+                    <div class="sb-nav-link-icon">
+                        <i class="fas fa-tachometer-alt text-white"></i>
+                    </div>
+                    Núcleos
+                </a>
+                </div>
+
+                <div class="sb-sidenav-menu-heading text-white">Logout</div>
+                <a class="nav-link text-white" (click)="logout();" href="#"
+                    data-toggle="collapse" data-target="#collapseLayouts"
+                    aria-expanded="false" aria-controls="collapseLayouts"
+                    ><div class="sb-nav-link-icon"><i class="fas fa-sign-out-alt text-white"></i></div>
+                    Sair
+                </a>
+            </div>
+        </div>
+<!--         <div class="sb-sidenav-footer bg-success">
+          <i class="fa fa-user-circle mr-1"> </i>
+          <div class="small">Usuário Logado:</div>
+            {{ usuario.username }}
+        </div> -->
+    </nav>
+</div>

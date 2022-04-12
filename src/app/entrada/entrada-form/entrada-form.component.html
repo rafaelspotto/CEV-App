@@ -1,0 +1,211 @@
+<h1 class="mt-4">Entrada</h1>
+<ol class="breadcrumb mb-4">
+  <li class="breadcrum-bitem active">Novo</li>
+</ol>
+<br>
+
+<div class="container">
+    <form [formGroup]="formulario" (submit)="onSubmit()" >
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="alert alert-success" role="alert" *ngIf="success == true">
+                    Entrada salva com sucesso!
+                </div>
+                <div class="alert alert-danger" role="alert" *ngFor="let erro of errors">
+                    {{ erro  }}
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+              <div *ngIf="formulario.get('descricao')?.errors?.required && formulario.get('descricao')?.touched"
+              class="text-danger d-block mt-2">
+                  A Descrição é obrigatória.
+              </div>
+              <div class="form-group">
+                        <label>Descrição</label>
+                        <input class="form-control" formControlName="descricao"
+                            [(ngModel)]="entrada.descricao" name="descricao"/>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div *ngIf="formulario.get('dataEntrada')?.errors?.required && formulario.get('dataEntrada')?.touched"
+                class="text-danger d-block mt-2">
+                    A Data de Entrada é obrigatória.
+                </div>
+                <div class="form-group">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Data de Entrada: </mat-label>
+                    <input matInput [matDatepicker]="picker" class="form-control" formControlName="dataEntrada"
+                    [(ngModel)]="entrada.dataEntrada" name="dataEntrada" mask="00/00/0000">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                  </mat-form-field>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+              <div *ngIf="formulario.get('tipoEntrada')?.errors?.required && formulario.get('tipoEntrada')?.touched"
+              class="text-danger d-block mt-2">
+                O Tipo de Entrada é obrigatório.
+              </div>
+              <div class="form-group">
+                <label>Tipo Entrada:</label>
+                    <select type="text" class="form-control" formControlName="tipoEntrada"
+                        [(ngModel)]="entrada.tipoEntrada" name="tipoEntrada" [compareWith]="compareObj">
+                        <option *ngFor="let tipoEntrada of listaTipoEntrada"
+                                [ngValue]="tipoEntrada" >
+                                {{tipoEntrada.nome}}
+                        </option>
+                    </select>
+              </div>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-md-12">
+                <button  type="submit" class="btn btn-success" [disabled]="!formulario.valid" >
+                  <i class="fa fa-save"></i>
+                    Salvar
+                </button>
+
+                <button type="button" routerLink="/entrada/lista"
+                  class="btn btn-danger ml-1">
+                  <i class="fa fa-arrow-alt-circle-left" ></i>
+                    Voltar
+                </button>
+
+            </div>
+        </div>
+
+    </form>
+    <br>
+</div>
+
+<h2 class="mt-4">Vegetal da Entrada</h2>
+
+<div class="container">
+    <form [formGroup]="formularioVegetal">
+        <div class="row" >
+            <div class="col-md-6">
+
+                <div class="form-group">
+                    <label>Número:</label>
+                    <input type="text" class="form-control" name="numero" formControlName="numero"
+                           [(ngModel)]="vegetal.numero" disabled="true"  />
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Ano:</label>
+                    <input type="text" class="form-control" name="ano" formControlName="ano"
+                           [(ngModel)]="vegetal.ano" disabled="true"  />
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+              <div *ngIf="formularioVegetal.get('descricao')?.errors?.required && formularioVegetal.get('descricao')?.touched"
+                  class="text-danger d-block mt-2">
+                  A Descrição é obrigatória.
+              </div>
+                <div class="form-group">
+                    <label>Descrição: *</label>
+                    <input type="text" class="form-control"
+                              [(ngModel)]="vegetal.descricao" name="descricao" />
+
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+              <div *ngIf="formularioVegetal.get('quantidade')?.errors?.required && formularioVegetal.get('quantidade')?.touched"
+                  class="text-danger d-block mt-2">
+                  A Quantidade é obrigatória.
+              </div>
+              <div *ngIf="formularioVegetal.get('quantidade')?.errors?.min && formularioVegetal.get('quantidade')?.touched"
+                  class="text-danger d-block mt-2">
+                  A quantidade mínima é 1.
+              </div>
+                <div class="form-group">
+                    <label>Quantidade: *</label>
+                    <input type="number" class="form-control" formControlName="quantidade"
+                           [(ngModel)]="vegetal.quantidade" name="quantidade"   />
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div *ngIf="formularioVegetal.get('tipoMariri')?.errors?.required && formularioVegetal.get('tipoMariri')?.touched"
+                  class="text-danger d-block mt-2">
+                  O Tipo de Mariri é obrigatório.
+                </div>
+                <div class="form-group">
+                  <label>Tipo Mariri:</label>
+                      <select type="text" class="form-control" formControlName="tipoMariri"
+                          [(ngModel)]="vegetal.tipoMariri" name="tipoMariri">
+                          <option *ngFor="let tipoMariri of listaTipoMariri"
+                                  [ngValue]="tipoMariri" >
+                                  {{tipoMariri.nome}}
+                          </option>
+                      </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3">
+                <button type="button" class="btn btn-warning" (click)="adicionar()" [disabled]="!formularioVegetal.valid">
+                    <i class="fa fa-plus"></i> Adicionar
+                </button>
+            </div>
+
+        </div>
+    </form>
+</div>
+
+<h2 class="mt-4">Lista de Vegetal da Entrada</h2>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-condensed table-hover">
+                <thead>
+                    <tr>
+                        <th>Numero</th>
+                        <th>Ano</th>
+                        <th>Descrição</th>
+                        <th>Quantidade</th>
+                        <th>Tipo Mariri</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let vegetal of entrada.listaVegetal">
+                        <td>{{ vegetal.numero }}</td>
+                        <td>{{ vegetal.ano }}</td>
+                        <td>{{ vegetal.descricao }}</td>
+                        <td>{{ vegetal.quantidade }}</td>
+                        <td>{{ vegetal.tipoMariri.nome }}</td>
+                        <td>
+                            <button type="button" class="btn btn-danger" (click)="deletar(vegetal)" >
+                                <i class="fa fa-trash"></i> Deletar
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+</div>

@@ -1,0 +1,132 @@
+<h1 class="mt-4">Saídas</h1>
+<ol class="breadcrumb mb-4">
+    <li class="breadcrum-bitem active">Consulta</li>
+</ol>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+
+            <div class="alert alert-success" role="alert" *ngIf="mensagemSucesso">
+                {{ mensagemSucesso }}
+            </div>
+
+            <div class="alert alert-danger" role="alert" *ngIf="mensagemErro">
+                {{ mensagemErro  }}
+            </div>
+        </div>
+    </div>
+
+<div class="container">
+    <form #consultaForm="ngForm" (submit)="consultar()">
+        <div class="row">
+            <div class="col-md-6">
+                <label for="inputDescricao">Descrição:</label>
+                <input type="text" [(ngModel)]="descricao"
+                       name="descricao" class="form-control"
+                       id="inputDescricao">
+            </div>
+
+            <div class="col-md-6">
+                <label for="inputMes">Ano: </label>
+                <input type="number" [(ngModel)]="ano"
+                      name="ano" class="form-control"
+                      id="ano">
+            </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6">
+              <div class="form-group">
+                  <label>Vegetal:</label>
+                  <select type="text" class="form-control"
+                      [(ngModel)]="vegetal"
+                      name="vegetal">
+                      <option value=null>Selecione</option>
+                      <option *ngFor="let vegetal of listaVegetal"
+                              [ngValue]="vegetal">
+                              {{vegetal.numero}}.{{vegetal.ano}} - {{vegetal.descricao}}
+                      </option>
+                  </select>
+              </div>
+          </div>
+      </div>
+
+        <br />
+
+        <div class="row">
+            <div class="col-md-4">
+                <button type="submit" class="btn btn-primary">
+                    <i class="fa fa-search"></i> Consultar
+                </button>
+
+                <button type="button"
+                        routerLink="/saida/form"
+                        class="btn btn-warning ml-1">
+                    <i class="fa fa-plus"></i> Novo
+                </button>
+            </div>
+        </div>
+    </form>
+
+    <br />
+    <div class="row">
+        <div class="alert alert-warning" role="alert" *ngIf="message">
+            {{ message }}
+        </div>
+        <div class="col-md-12">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Descrição</th>
+                        <th>Tipo</th>
+                        <th>Data da Saída</th>
+                        <th>Total</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let saida of saidas" >
+                        <td>{{ saida.descricao }} </td>
+                        <td>{{ saida.tipoSaida.nome }} </td>
+                        <td>{{ saida.dataSaida | date:'shortDate' }} </td>
+                        <td>{{ saida.totalSaida }} </td>
+                        <td>
+                            <button class="btn btn-primary"
+                                    routerLink="/saida/form/{{ saida.id }}">
+                                <i class="fa fa-edit"></i>
+                            </button>
+
+                            <button class="btn btn-danger ml-1" (click)="preparaDelecao(saida)"
+                                    data-toggle="modal" data-target="#modalDelecao">
+                                <i class="fa fa-trash"></i>
+                            </button>
+
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+    <div id="modalDelecao" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4>Confirmação</h4>
+                </div>
+
+                <div class="modal-body" *ngIf="saidaSelecionado">
+                    Confirma deletar o Vegetal {{ saidaSelecionado.descricao }}?
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-success" (click)="deletarSaida()"
+                            data-dismiss="modal">Confirmar</button>
+                    <button class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

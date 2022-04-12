@@ -1,0 +1,202 @@
+<h1 class="mt-4">Saida</h1>
+<ol class="breadcrumb mb-4">
+    <li class="breadcrum-bitem active">Novo</li>
+</ol>
+<br>
+
+<div class="container">
+    <form [formGroup]="formulario" (submit)="onSubmit()" >
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="alert alert-success" role="alert" *ngIf="success == true">
+                    Saida salva com sucesso!
+                </div>
+                <div class="alert alert-danger" role="alert" *ngFor="let erro of errors">
+                    {{ erro  }}
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+              <div *ngIf="formulario.get('descricao')?.errors?.required && formulario.get('descricao')?.touched"
+              class="text-danger d-block mt-2">
+                  A Descrição é obrigatória.
+              </div>
+              <div class="form-group">
+                    <label>Descrição:</label>
+                    <input class="form-control" formControlName="descricao"
+                            [(ngModel)]="saida.descricao" type="text"
+                            name="descricao" id="inputDescricao">
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+              <div *ngIf="formulario.get('dataSaida')?.errors?.required && formulario.get('dataSaida')?.touched"
+              class="text-danger d-block mt-2">
+                  A Data de Saída é obrigatória.
+              </div>
+              <div class="form-group">
+                <mat-form-field appearance="outline">
+                  <mat-label>Data de Saida: </mat-label>
+                  <input matInput [matDatepicker]="picker" class="form-control" formControlName="dataSaida"
+                  [(ngModel)]="saida.dataSaida" name="dataSaida" mask="00/00/0000">
+                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                  <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+                <div *ngIf="formulario.get('tipoSaida')?.errors?.required && formulario.get('tipoSaida')?.touched"
+                class="text-danger d-block mt-2">
+                  O Tipo de Saída é obrigatório.
+                </div>
+                <div class="form-group">
+                  <label>Tipo Saída:</label>
+                      <select type="text" class="form-control" formControlName="tipoSaida"
+                          [(ngModel)]="saida.tipoSaida" name="tipoSaida" [compareWith]="compareObj">
+                          <option *ngFor="let tipoSaida of listaTipoSaida"
+                                  [ngValue]="tipoSaida" >
+                                  {{tipoSaida.nome}}
+                          </option>
+                      </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" *ngIf="!!saida.saidaVegetal && saida.saidaVegetal.length > 1">
+            <div class="col-md-6 border">
+                <p class="font-weight-bold">Unir Vegetal do retorno?</p>
+                <input type="checkbox" [(ngModel)]="unirVegetal" id="unir"
+                  name="unir" formControlName="unirVegetal">
+                <label for="unir" class="ml-2">Unir</label>
+                <label for="unir" class="ml-3" *ngIf="!!saida.vegetalUnido">{{saida.vegetalUnido!.numero}}.{{saida.vegetalUnido!.ano}} - {{saida.vegetalUnido!.descricao}}</label>
+
+                <br>
+
+                <div class="form-group">
+                    <label>Quantidade do retorno:</label>
+                    <input class="form-control" formControlName="quantidadeUnido"
+                            [(ngModel)]="vegetalUnido.quantidade" type="number"
+                            name="retorno" id="retorno">
+                </div>
+            </div>
+        </div>
+
+        <br>
+
+        <div class="row">
+            <div class="col-md-12">
+                <button type="submit" class="btn btn-success" [disabled]="!formulario.valid">
+                    <i class="fa fa-save"></i>
+                    Salvar
+                </button>
+
+                <button type="button" routerLink="/saida/lista"
+                        class="btn btn-danger ml-1" >
+                    <i class="fa fa-arrow-alt-circle-left" ></i> Voltar
+                </button>
+
+            </div>
+
+        </div>
+
+    </form>
+
+    <br>
+
+    <h1 class="mt-4">Vegetal</h1>
+
+    <div class="container">
+      <form [formGroup]="formularioVegetal">
+
+        <div class="row">
+            <div class="col-md-6">
+              <div *ngIf="formularioVegetal.get('vegetal')?.errors?.required && formularioVegetal.get('vegetal')?.touched"
+                  class="text-danger d-block mt-2">
+                  Vegetal é obrigatório.
+              </div>
+              <div class="form-group">
+                    <label>Vegetal:</label>
+                    <select type="text" class="form-control" formControlName="vegetal"
+                        [(ngModel)]="saidaVegetal.vegetal" name="vegetal">
+                        <option *ngFor="let vegetal of listaVegetal"
+                                [ngValue]="vegetal">
+                                {{vegetal.numero}}.{{vegetal.ano}} - {{vegetal.descricao}}
+                        </option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+              <div *ngIf="formularioVegetal.get('quantidade')?.errors?.required && formularioVegetal.get('quantidade')?.touched"
+                  class="text-danger d-block mt-2">
+                  A Quantidade é obrigatória.
+              </div>
+              <div *ngIf="formularioVegetal.get('quantidade')?.errors?.min && formularioVegetal.get('quantidade')?.touched"
+                  class="text-danger d-block mt-2">
+                  A quantidade mínima é 1.
+              </div>
+              <div class="form-group">
+                    <label>Quantidade:</label>
+                    <input class="form-control" formControlName="quantidade"
+                            [(ngModel)]="saidaVegetal.quantidade" type="number"
+                            name="quantidade" id="quantidade">
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3">
+                <button type="button" class="btn btn-success" (click)="adicionar()"
+                [disabled]="!formularioVegetal.valid">
+                    <i class="fa fa-plus"></i>
+                    Adicionar
+                </button>
+
+            </div>
+        </div>
+
+      </form>
+    </div>
+
+    <br>
+
+    <h1 class="mt-4">Lista de Vegetal</h1>
+
+    <div class="col-md-12">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Numero do Vegetal</th>
+                    <th>Ano</th>
+                    <th>Descrição do Vegetal</th>
+                    <th>Quantidade</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let saidaVegetal of saida.saidaVegetal" >
+                    <td>{{ saidaVegetal.vegetal.numero }} </td>
+                    <td>{{ saidaVegetal.vegetal.ano }} </td>
+                    <td>{{ saidaVegetal.vegetal.descricao }} </td>
+                    <td>{{ saidaVegetal.quantidade }} </td>
+                    <td>
+                        <button class="btn btn-danger" (click)="deletar(saidaVegetal)">
+                            <i class="fa fa-trash"></i>
+                        </button>
+
+                    </td>
+                </tr>
+                <tr>Total Saída: {{saida.totalSaida}}</tr>
+            </tbody>
+        </table>
+
+    </div>
+
+</div>

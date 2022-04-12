@@ -1,0 +1,154 @@
+<h1 class="mt-4">Vegetal</h1>
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item active">Consulta</li>
+</ol>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+
+            <div class="alert alert-success" role="alert" *ngIf="mensagemSucesso">
+                {{ mensagemSucesso }}
+            </div>
+
+            <div class="alert alert-danger" role="alert" *ngIf="mensagemErro">
+                {{ mensagemErro  }}
+            </div>
+        </div>
+    </div>
+
+    <form #consultaForm="ngForm" (submit)="consultar()">
+      <div class="row">
+          <div class="col-md-6">
+              <label for="inputDescricao">Descrição:</label>
+              <input type="text" [(ngModel)]="descricao"
+                     name="descricao" class="form-control"
+                     id="inputDescricao">
+          </div>
+
+          <div class="col-md-6">
+              <label for="ano">Ano:</label>
+              <input type="number" [(ngModel)]="ano"
+                      name="ano" class="form-control"
+                      id="ano">
+          </div>
+      </div>
+
+      <br />
+
+      <div class="row">
+          <div class="col-md-4">
+              <button type="submit" class="btn btn-primary">
+                  <i class="fa fa-search"></i> Consultar
+              </button>
+
+              <button type="button"
+                      routerLink="/vegetal/form"
+                      class="btn btn-warning ml-1">
+                  <i class="fa fa-plus"></i> Novo
+              </button>
+          </div>
+      </div>
+    </form>
+
+    <br />
+
+    <mat-tab-group>
+    <mat-tab>
+
+    <ng-template mat-tab-label>
+      <mat-icon>list</mat-icon>
+        Ativos
+    </ng-template>
+
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-condensed table-hover">
+                <thead>
+                    <tr>
+                        <th>Numero</th>
+                        <th>Ano</th>
+                        <th>Descrição</th>
+                        <th>Entrada</th>
+                        <th>Quantidade Entrada</th>
+                        <th>Quantidade Atual</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let vegetal of listaVegetalAtivos">
+                        <td>{{ vegetal.numero }}</td>
+                        <td>{{ vegetal.ano }}</td>
+                        <td>{{ vegetal.descricao }}</td>
+                        <td>{{ vegetal.entrada?.descricao }}</td>
+                        <td>{{ vegetal.quantidadeEntrada }}</td>
+                        <td>{{ vegetal.quantidade }}</td>
+                        <td>
+                            <button class="btn btn-primary"
+                                    routerLink="/vegetal/form/{{ vegetal.id }}">
+                                <i class="fa fa-edit"></i>
+                            </button>
+
+                            <a class="ml-2" (click)="ativar(vegetal)">
+                              <i class="{{vegetal.ativo ? 'bi bi-toggle-on' : 'bi bi-toggle-off'}}" style="font-size: 2em;"></i>
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    </mat-tab>
+
+    <mat-tab>
+      <ng-template mat-tab-label>
+          <mat-icon>list</mat-icon>
+          Inativos
+      </ng-template>
+
+      <div class="row">
+        <div class="col-md-12">
+            <table class="table table-condensed table-hover">
+                <thead>
+                    <tr>
+                        <th>Numero</th>
+                        <th>Ano</th>
+                        <th>Descrição</th>
+                        <th>Entrada</th>
+                        <th>Quantidade</th>
+                        <th>Tipo Mariri</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let vegetal of listaVegetalInativos">
+                        <td>{{ vegetal.numero }}</td>
+                        <td>{{ vegetal.ano }}</td>
+                        <td>{{ vegetal.descricao }}</td>
+                        <td>{{ vegetal.entrada?.descricao }}</td>
+                        <td>{{ vegetal.quantidade }}</td>
+                        <td>{{ vegetal.tipoMariri }}</td>
+                        <td>
+                            <button class="btn btn-primary"
+                                    routerLink="/vegetal/form/{{ vegetal.id }}">
+                                <i class="fa fa-edit"></i>
+                            </button>
+
+                            <a class="ml-2" (click)="ativar(vegetal)">
+                              <i class="{{vegetal.ativo ? 'bi bi-toggle-on' : 'bi bi-toggle-off'}}" style="font-size: 2em;"></i>
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    </mat-tab>
+
+    </mat-tab-group>
+
+
+</div>
+
+<h2 class="fw-bold fs-4">Total Estoque: {{totalEstoque}}</h2>
+
