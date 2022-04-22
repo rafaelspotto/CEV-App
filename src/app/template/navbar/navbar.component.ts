@@ -12,6 +12,8 @@ export class NavbarComponent implements OnInit {
 
   usuario: Usuario;
   isLoggedIn = false;
+  showAdminUser = false;
+  private roles: string[] = [];
 
   constructor(
     private authService: AuthService,
@@ -21,6 +23,8 @@ export class NavbarComponent implements OnInit {
   ngOnInit(): void {
     this.usuario = this.authService.getUsuarioAutenticado();
     this.isLoggedIn = this.authService.isAuthenticated();
+    this.roles = this.usuario.roles;
+    this.showAdminUser = this.roles.includes("ROLE_ADMIN") ? true : false;
   }
 
   logout(){

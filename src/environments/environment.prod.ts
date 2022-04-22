@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiURLBase: 'http://localhost:8080'
+  apiURLBase: 'https://sisgev-cev-api.herokuapp.com'
 };

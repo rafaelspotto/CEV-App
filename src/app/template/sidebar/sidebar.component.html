@@ -3,28 +3,36 @@
         <div class="sb-sidenav-menu">
             <div class="nav">
                 <div class="sb-sidenav-menu-heading text-white">Sistema</div>
-                <a class="nav-link text-white" routerLink="/home">
+                <a class="nav-link collapsed text-white" routerLink="/home"
+                    data-toggle="collapse" data-target="#collapseLayouts"
+                    aria-expanded="false" aria-controls="collapseLayouts">
                     <div class="sb-nav-link-icon">
                         <i class="fas fa-tachometer-alt text-white"></i>
                     </div>
                     Home
                 </a>
                 <div class="sb-sidenav-menu-heading text-white">Vegetal</div>
-                <a class="nav-link text-white" routerLink="/vegetal">
+                <a class="nav-link collapsed text-white" routerLink="/vegetal"
+                    data-toggle="collapse" data-target="#collapseLayouts"
+                    aria-expanded="false" aria-controls="collapseLayouts">
                     <div class="sb-nav-link-icon">
                         <i class="fas fa-tachometer-alt text-white"></i>
                     </div>
                     Vegetal
                 </a>
 
-                <a class="nav-link text-white" routerLink="/entrada">
+                <a class="nav-link collapsed text-white" routerLink="/entrada"
+                    data-toggle="collapse" data-target="#collapseLayouts"
+                    aria-expanded="false" aria-controls="collapseLayouts">
                     <div class="sb-nav-link-icon">
                         <i class="fas fa-tachometer-alt text-white"></i>
                     </div>
                     Entradas
                 </a>
 
-                <a class="nav-link text-white" routerLink="/saida">
+                <a class="nav-link collapsed text-white" routerLink="/saida"
+                    data-toggle="collapse" data-target="#collapseLayouts"
+                    aria-expanded="false" aria-controls="collapseLayouts">
                     <div class="sb-nav-link-icon">
                         <i class="fas fa-tachometer-alt text-white"></i>
                     </div>
@@ -33,13 +41,17 @@
 
                 <div *ngIf="showAdminUser">
                   <div class="sb-sidenav-menu-heading text-white">Admin</div>
-                  <a class="nav-link text-white" routerLink="/usuario">
+                  <a class="nav-link collapsed text-white" routerLink="/usuario"
+                    data-toggle="collapse" data-target="#collapseLayouts"
+                    aria-expanded="false" aria-controls="collapseLayouts">
                       <div class="sb-nav-link-icon">
                           <i class="fas fa-tachometer-alt text-white"></i>
                       </div>
                       Usuários
                   </a>
-                  <a class="nav-link text-white" routerLink="/nucleo">
+                  <a class="nav-link collapsed text-white" routerLink="/nucleo"
+                    data-toggle="collapse" data-target="#collapseLayouts"
+                    aria-expanded="false" aria-controls="collapseLayouts">
                     <div class="sb-nav-link-icon">
                         <i class="fas fa-tachometer-alt text-white"></i>
                     </div>
@@ -48,7 +60,7 @@
                 </div>
 
                 <div class="sb-sidenav-menu-heading text-white">Logout</div>
-                <a class="nav-link text-white" (click)="logout();" href="#"
+                <a class="nav-link collapsed text-white" (click)="logout();" href="#"
                     data-toggle="collapse" data-target="#collapseLayouts"
                     aria-expanded="false" aria-controls="collapseLayouts"
                     ><div class="sb-nav-link-icon"><i class="fas fa-sign-out-alt text-white"></i></div>
