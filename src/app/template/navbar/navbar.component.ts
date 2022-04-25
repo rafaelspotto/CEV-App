@@ -14,6 +14,7 @@ export class NavbarComponent implements OnInit {
   isLoggedIn = false;
   showAdminUser = false;
   private roles: string[] = [];
+  isShown = false;
 
   constructor(
     private authService: AuthService,

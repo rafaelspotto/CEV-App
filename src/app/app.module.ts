@@ -28,6 +28,9 @@ import localePt from '@angular/common/locales/pt';
 import { registerLocaleData } from '@angular/common';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import  { ChartsModule } from 'ng2-charts';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { ProgressSpinnerDialogComponent } from './progress-spinner-dialog-component/progress-spinner-dialog-component';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 registerLocaleData(localePt, 'pt');
 
@@ -36,7 +39,8 @@ registerLocaleData(localePt, 'pt');
     AppComponent,
     HomeComponent,
     LoginComponent,
-    LayoutComponent
+    LayoutComponent,
+    ProgressSpinnerDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -50,7 +54,9 @@ registerLocaleData(localePt, 'pt');
     UsuarioModule,
     NucleoModule,
     BrowserAnimationsModule,
-    ChartsModule
+    ChartsModule,
+    NgbModule,
+    MatProgressSpinnerModule
   ],
   providers: [
     VegetalService,

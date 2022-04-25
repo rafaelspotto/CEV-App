@@ -3,6 +3,9 @@ import { Router } from '@angular/router';
 import { Usuario } from '../usuario/usuario'
 import { AuthService } from '../auth.service';
 import { TokenStorageService } from '../token-storage.service';
+import { MatDialog, MatDialogRef } from "@angular/material/dialog";
+import { ProgressSpinnerDialogComponent } from '../progress-spinner-dialog-component/progress-spinner-dialog-component';
+
 
 @Component({
   selector: 'app-login',
@@ -24,10 +27,15 @@ export class LoginComponent  {
   constructor(
     private router: Router,
     private authService: AuthService,
-    private tokenStorage: TokenStorageService
+    private tokenStorage: TokenStorageService,
+    private dialog: MatDialog
   ) { }
 
   onSubmit(){
+    let dialogRef: MatDialogRef<ProgressSpinnerDialogComponent> = this.dialog.open(ProgressSpinnerDialogComponent, {
+      panelClass: 'transparent',
+      disableClose: true
+    });
     this.authService
           .login(this.username, this.password)
           .subscribe(data => {
@@ -36,10 +44,12 @@ export class LoginComponent  {
             this.isLoginFailed = false;
             this.isLoggedIn = true;
             this.roles = this.tokenStorage.getUser().roles;
-            this.router.navigate(['/home'])
+            dialogRef.close();
+            this.router.navigate(['/home']);
           }, errorResponse => {
             this.errorMessage = errorResponse.error.message;
             this.isLoginFailed = true;
+            dialogRef.close();
           })
 
   }
