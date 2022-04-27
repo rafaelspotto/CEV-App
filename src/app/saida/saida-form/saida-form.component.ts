@@ -96,6 +96,7 @@ export class SaidaFormComponent implements OnInit {
       descricao: ['', Validators.required ],
       dataSaida: ['', Validators.required],
       tipoSaida: ['', Validators.required],
+      numeroPessoas: ['', Validators.required],
       unirVegetal: [''],
       quantidadeUnido: ['']
     })
@@ -164,7 +165,7 @@ export class SaidaFormComponent implements OnInit {
   }
 
   calculaTotal() {
-    return this.saida.saidaVegetal.reduce((total, item) => item.quantidade + total,0)
+    return this.saida.saidaVegetal.reduce((total, item) => Number(item.quantidade) + total,0)
   }
 
   compareObj(o1: TipoSaida, o2: TipoSaida) {

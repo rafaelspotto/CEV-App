@@ -82,6 +82,8 @@
                         <th>Tipo</th>
                         <th>Data da Saída</th>
                         <th>Total</th>
+                        <th>Total de Pessoas</th>
+                        <th>Média de Consumo p/ Pessoa</th>
                         <th>Ações</th>
                     </tr>
                 </thead>
@@ -90,7 +92,9 @@
                         <td>{{ saida.descricao }} </td>
                         <td>{{ saida.tipoSaida.nome }} </td>
                         <td>{{ saida.dataSaida | date:'shortDate' }} </td>
-                        <td>{{ saida.totalSaida }} </td>
+                        <td>{{ saida.totalSaida }} L</td>
+                        <td>{{ saida.numeroPessoas }} </td>
+                        <td>{{ saida.totalSaida / saida.numeroPessoas * 1000 | number}} ml</td>
                         <td>
                             <button class="btn btn-primary"
                                     routerLink="/saida/form/{{ saida.id }}">

@@ -101,7 +101,7 @@ export class VegetalFormComponent implements OnInit {
   }
 
   calculaTotal() {
-    return this.listaSaidaVegetal.reduce((total, item) => item.quantidade + total,0)
+    return this.listaSaidaVegetal.reduce((total, item) => Number(item.quantidade) + total,0)
   }
 
   compareObj(o1: TipoMariri, o2: TipoMariri) {

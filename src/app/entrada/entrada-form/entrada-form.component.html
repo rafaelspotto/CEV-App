@@ -138,8 +138,9 @@
               </div>
                 <div class="form-group">
                     <label>Quantidade: *</label>
-                    <input type="number" class="form-control" formControlName="quantidade"
-                           [(ngModel)]="vegetal.quantidade" name="quantidade"   />
+                    <input type="text" class="form-control" formControlName="quantidade"
+                           [(ngModel)]="vegetal.quantidade" name="quantidade"
+                           mask="separator.3" thousandSeparator="" separatorLimit="999999" decimalMarker="."/>
                 </div>
             </div>
         </div>

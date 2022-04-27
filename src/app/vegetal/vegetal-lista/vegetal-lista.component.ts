@@ -17,7 +17,7 @@ export class VegetalListaComponent implements OnInit {
   vegetalSelecionado: Vegetal;
   mensagemSucesso: string;
   mensagemErro: string;
-  totalEstoque: Number;
+  totalEstoque: number;
   descricao: string='';
   ano: number;
   message: string;
@@ -33,11 +33,12 @@ export class VegetalListaComponent implements OnInit {
           this.listaVegetal = resposta,
           this.listaVegetalAtivos = this.listaVegetal.filter(vegetal => vegetal.ativo == true);
           this.listaVegetalInativos = this.listaVegetal.filter(vegetal => vegetal.ativo == false);
+          this.totalEstoque = this.calculaTotal();
         });
 
-      this.service
+      /* this.service
       .getTotalEstoque()
-      .subscribe( resposta => this.totalEstoque = resposta );
+      .subscribe( resposta => this.totalEstoque = resposta ); */
   }
 
   novoCadastro(){
@@ -59,13 +60,13 @@ export class VegetalListaComponent implements OnInit {
     this.service.ativar(vegetal).subscribe(response => {
       vegetal.ativo = !vegetal.ativo;
     })
+    this.totalEstoque = this.calculaTotal();
   }
 
   consultar(){
     this.service
       .buscar(this.descricao,this.ano)
       .subscribe(response => {
-        console.log(response);
         this.listaVegetal = response;
         if( this.listaVegetal.length <= 0 ){
           this.message = "Nenhum Registro encontrado.";
@@ -73,7 +74,12 @@ export class VegetalListaComponent implements OnInit {
           this.listaVegetalAtivos = this.listaVegetal.filter(vegetal => vegetal.ativo == true);
           this.listaVegetalInativos = this.listaVegetal.filter(vegetal => vegetal.ativo == false);
           this.message = null;
+          this.totalEstoque = this.calculaTotal();
         }
       });
+  }
+
+  calculaTotal() {
+    return this.listaVegetalAtivos.reduce((total, item) => Number(item.quantidade) + total,0)
   }
 }

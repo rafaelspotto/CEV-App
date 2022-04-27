@@ -32,7 +32,7 @@ export class VegetalService {
     return this.http.get<Vegetal[]>(`${this.apiURL}/ativos`);
   }
 
-  getTotalEstoque() : Observable<Number> {
+  getTotalEstoque() : Observable<number> {
     return this.http.get<any>(`${this.apiURL}/totalEstoque`);
   }
 

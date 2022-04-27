@@ -11,5 +11,6 @@ export class Saida {
     saidaVegetal:SaidaVegetal[];
     vegetalUnido:Vegetal;
     totalSaida: number;
+    numeroPessoas: number;
     nucleo: Nucleo;
 }

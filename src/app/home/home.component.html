@@ -1,8 +1,23 @@
 <h1 class="mt-4">Dashboard</h1>
 <ol class="breadcrumb mb-4">
-    <li class="breadcrumb-item active">Médias</li>
+    <li class="breadcrumb-item active">Graficos de Médias</li>
 </ol>
 
+<div>
+  <select type="text" class="form-control" [(ngModel)]="ano" name="ano" (change)="reload()">
+      <option value=null>Selecione o ano</option>
+      <option *ngFor="let ano of listaAnos" [ngValue]="ano">
+              {{ano}}
+      </option>
+  </select>
+</div>
+<br>
+
+<ol class="breadcrumb mb-4">
+  <li class="breadcrumb-item active">Média de consumo por Tipo de Sessão</li>
+</ol>
+
+<br>
 <div class="chart-wrapper">
   <canvas baseChart
   [data]="doughnutChartData"
@@ -11,10 +26,27 @@
   [colors]="doughnutChartColors">
 </canvas>
 </div>
+<br>
+
+<ol class="breadcrumb mb-4">
+  <li class="breadcrumb-item active">Média de consumo por pessoa por mês</li>
+</ol>
+
+<br>
+<div style="display: block;" *ngIf="chartReady">
+  <canvas baseChart
+    [datasets]="barChartData"
+    [labels]="barChartLabels"
+    [options]="barChartOptions"
+    [plugins]="barChartPlugins"
+    [legend]="barChartLegend"
+    [chartType]="barChartType">
+  </canvas>
+</div>
 
 <br/>
 <ol class="breadcrumb mb-4">
-  <li class="breadcrumb-item active">Médias</li>
+  <li class="breadcrumb-item active">Lista de médias</li>
 </ol>
 
 <div class="row">

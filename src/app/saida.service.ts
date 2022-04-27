@@ -6,6 +6,7 @@ import { environment } from '../environments/environment'
 import { SaidaGrafico } from './saida/saidaGrafico';
 import { Vegetal } from './vegetal/vegetal';
 import { TipoSaida } from './saida/tipoSaida';
+import { SaidaGraficoConsumo } from './saida/saidaGraficoConsumo';
 
 @Injectable({
   providedIn: 'root'
@@ -36,6 +37,19 @@ export class SaidaService {
       .set("ano", ano);
 
     const url = `${this.apiURL}/medias` + "?" + httpParams.toString();
+    return this.http.get<any>(url);
+  }
+
+  mediasConsumo( ano: number) : Observable<SaidaGraficoConsumo[]>{
+    const httpParams = new HttpParams()
+      .set("ano", ano);
+
+    const url = `${this.apiURL}/mediasConsumo` + "?" + httpParams.toString();
+    return this.http.get<any>(url);
+  }
+
+  getListaAnos() : Observable<number[]>{
+    const url = `${this.apiURL}/listaAnos`;
     return this.http.get<any>(url);
   }
 

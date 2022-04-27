@@ -68,6 +68,21 @@
             </div>
         </div>
 
+        <div class="row">
+          <div class="col-md-6">
+            <div *ngIf="formulario.get('numeroPessoas')?.errors?.required && formulario.get('numeroPessoas')?.touched"
+            class="text-danger d-block mt-2">
+                O Número de pessoas é obrigatório.
+            </div>
+            <div class="form-group">
+                  <label>Número de Pessoas:</label>
+                  <input class="form-control" formControlName="numeroPessoas"
+                          [(ngModel)]="saida.numeroPessoas" type="number"
+                          name="numeroPessoas" id="inputPessoas">
+              </div>
+          </div>
+        </div>
+
         <div class="row" *ngIf="!!saida.saidaVegetal && saida.saidaVegetal.length > 1">
             <div class="col-md-6 border">
                 <p class="font-weight-bold">Unir Vegetal do retorno?</p>
@@ -81,8 +96,8 @@
                 <div class="form-group">
                     <label>Quantidade do retorno:</label>
                     <input class="form-control" formControlName="quantidadeUnido"
-                            [(ngModel)]="vegetalUnido.quantidade" type="number"
-                            name="retorno" id="retorno">
+                            [(ngModel)]="vegetalUnido.quantidade" type="text" name="retorno" id="retorno"
+                            mask="separator.3" thousandSeparator="" separatorLimit="999999" decimalMarker=".">
                 </div>
             </div>
         </div>
@@ -146,8 +161,8 @@
               <div class="form-group">
                     <label>Quantidade:</label>
                     <input class="form-control" formControlName="quantidade"
-                            [(ngModel)]="saidaVegetal.quantidade" type="number"
-                            name="quantidade" id="quantidade">
+                            [(ngModel)]="saidaVegetal.quantidade" type="text" name="quantidade" id="quantidade"
+                            mask="separator.3" thousandSeparator="" separatorLimit="999999" decimalMarker=".">
                 </div>
             </div>
         </div>
