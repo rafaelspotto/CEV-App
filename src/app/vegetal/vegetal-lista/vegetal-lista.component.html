@@ -83,7 +83,12 @@
                         <td>{{ vegetal.quantidadeEntrada }}</td>
                         <td>{{ vegetal.quantidade }}</td>
                         <td>
-                            <button class="btn btn-primary"
+                            <button class="btn btn-success ml-2"
+                                    (click)="openDialog(vegetal.id)">Histórico
+                                  <i class="fa fa-search"></i>
+                            </button>
+
+                            <button class="btn btn-primary ml-2"
                                     routerLink="/vegetal/form/{{ vegetal.id }}">
                                 <i class="fa fa-edit"></i>
                             </button>

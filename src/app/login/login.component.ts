@@ -47,7 +47,7 @@ export class LoginComponent  {
             dialogRef.close();
             this.router.navigate(['/home']);
           }, errorResponse => {
-            this.errorMessage = errorResponse.error.message;
+            this.errors = errorResponse.error.errors;
             this.isLoginFailed = true;
             dialogRef.close();
           })

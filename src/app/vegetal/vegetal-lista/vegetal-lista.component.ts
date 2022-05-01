@@ -3,6 +3,8 @@ import { Router } from '@angular/router'
 
 import { Vegetal } from '../vegetal';
 import { VegetalService } from '../../vegetal.service'
+import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
+import { VegetalHistoricoComponent } from '../vegetal-historico/vegetal-historico.component';
 
 @Component({
   selector: 'app-vegetal-lista',
@@ -24,7 +26,8 @@ export class VegetalListaComponent implements OnInit {
 
   constructor(
     private service: VegetalService,
-    private router: Router) {}
+    private router: Router,
+    private dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.service
@@ -81,5 +84,18 @@ export class VegetalListaComponent implements OnInit {
 
   calculaTotal() {
     return this.listaVegetalAtivos.reduce((total, item) => Number(item.quantidade) + total,0)
+  }
+
+  openDialog(id: number){
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+
+    dialogConfig.data = {
+        id: id
+    };
+
+    this.dialog.open(VegetalHistoricoComponent, dialogConfig);
   }
 }

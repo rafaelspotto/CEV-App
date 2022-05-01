@@ -1,0 +1,26 @@
+<h1 class="mt-4">Histórico</h1>
+
+    <div class="col-md-12">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Saída</th>
+                    <th>Data Saída</th>
+                    <th>Quantidade</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let saidaVegetal of listaSaidaVegetal" >
+                    <td>{{ saidaVegetal.saida.descricao }} </td>
+                    <td>{{ saidaVegetal.saida.dataSaida | date: 'shortDate' }} </td>
+                    <td>{{ saidaVegetal.quantidade }} </td>
+                </tr>
+                <tr>Total: {{total}}</tr>
+            </tbody>
+        </table>
+
+    </div>
+    <button class="btn btn-success ml-2"
+            (click)="close()">Fechar
+            <i class="fa fa-arrow-alt-circle-left"></i>
+          </button>

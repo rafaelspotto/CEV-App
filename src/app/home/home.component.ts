@@ -63,8 +63,8 @@ chartReady = false;
             .subscribe( resposta => {
               this.saidasConsumo = resposta
               this.barChartLabels = this.saidasConsumo.map(function(e) { return e.mes; } );
-              this.barChartData = [{data: this.saidasConsumo .map(function(e) { return e.media; }), label: 'Média por pessoa'},
-              {data: this.saidasConsumo .map(function(e) { return e.mediaSessao; }), label: 'Média por Sessão'}]
+              this.barChartData = [{data: this.saidasConsumo .map(function(e) { return e.media; }), label: 'Média por pessoa em ML'},
+              {data: this.saidasConsumo .map(function(e) { return e.mediaSessao; }), label: 'Média por Sessão em L'}]
               this.chartReady = true;
             });
   }
